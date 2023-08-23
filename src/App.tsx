@@ -26,8 +26,6 @@ const App = () => {
         .catch((err) => {
           console.error(err);
         });
-      document.cookie = `saintOfTheDay=Fabrice; Expires=${new Date(new Date().setMinutes(0))}`;
-      document.cookie = `saintOfTheDay=Fabrice; Expires=${getTomorrowMidnight()}`;
     }
   }, []);
 
