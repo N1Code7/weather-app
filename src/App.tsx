@@ -13,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     if (!getSaintFromCookie()) {
-      fetch(`http://fetedujour.fr/api/v2/${import.meta.env.VITE_API_SAINT}/json-normal-10-5`)
+      fetch(`https://fetedujour.fr/api/v2/${import.meta.env.VITE_API_SAINT}/json-normal-10-5`)
         .then((res) => {
           if (!res.ok) throw new Error(`Error: ${res.status}, Message: ${res.statusText}`);
           return res.json();
