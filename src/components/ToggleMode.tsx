@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import rooster from "./../assets/Rooster.svg";
 import owl from "./../assets/Owl.svg";
+import rooster from "./../assets/rooster.svg";
 
 interface IProps {
   nightMode: boolean;
