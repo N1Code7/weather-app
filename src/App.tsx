@@ -5,7 +5,11 @@ import calendar from "./assets/spiral-calendar.svg";
 import search from "./assets/magnifying-glass.svg";
 import ToggleMode from "./components/ToggleMode";
 import WeatherCard from "./components/WeatherCard";
-import { getSaintFromCookie, getTomorrowMidnight } from "./utils/functions";
+import {
+  formatDate,
+  getSaintFromCookie,
+  // getTomorrowMidnight
+} from "./utils/functions";
 
 const App = () => {
   const [nightMode, setNightMode] = useState(false);
@@ -40,7 +44,7 @@ const App = () => {
       <div className="calendar-info">
         <img src={calendar} className="emoji" alt="calendar icon" />
         <div className="text">
-          Nous sommes le <strong>le lundi 21 août 2023 </strong>
+          Nous sommes le <strong>{formatDate(new Date().toISOString(), 2)}</strong>
         </div>
       </div>
 
