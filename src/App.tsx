@@ -5,33 +5,29 @@ import calendar from "./assets/spiral-calendar.svg";
 import search from "./assets/magnifying-glass.svg";
 import ToggleMode from "./components/ToggleMode";
 import WeatherCard from "./components/WeatherCard";
-import {
-  formatDate,
-  getSaintFromCookie,
-  // getTomorrowMidnight
-} from "./utils/functions";
+import { formatDate, getSaintFromCookie, getTomorrowMidnight } from "./utils/functions";
 
 const App = () => {
   const [nightMode, setNightMode] = useState(false);
-  const [saint] = useState(getSaintFromCookie() || "");
+  const [saint, setSaint] = useState(getSaintFromCookie() || "");
 
   useEffect(() => {
     if (!getSaintFromCookie()) {
-      // fetch(`http://fetedujour.fr/api/v2/${import.meta.env.VITE_API_SAINT}/json-normal-10-5`)
-      // .then((res) => {
-      //   if (!res.ok) throw new Error(`Error: ${res.status}, Message: ${res.statusText}`);
-      //   return res.json();
-      // })
-      // .then((res) => {
-      //   console.log(res);
-      //   setSaint(res.name);
-      //   document.cookie = `saint=${res.name}; Expires=${getTomorrowMidnight()}`;
-      // })
-      // .catch((err) => {
-      //   console.error(err);
-      // });
+      fetch(`http://fetedujour.fr/api/v2/${import.meta.env.VITE_API_SAINT}/json-normal-10-5`)
+        .then((res) => {
+          if (!res.ok) throw new Error(`Error: ${res.status}, Message: ${res.statusText}`);
+          return res.json();
+        })
+        .then((res) => {
+          console.log(res);
+          setSaint(res.name);
+          document.cookie = `saint=${res.name}; Expires=${getTomorrowMidnight()}`;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
       document.cookie = `saintOfTheDay=Fabrice; Expires=${new Date(new Date().setMinutes(0))}`;
-      // document.cookie = `saintOfTheDay=Fabrice; Expires=${getTomorrowMidnight()}`;
+      document.cookie = `saintOfTheDay=Fabrice; Expires=${getTomorrowMidnight()}`;
     }
   }, []);
 
