@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import owl from "./../assets/Owl.svg";
+import owl from "./../assets/owl.svg";
 import rooster from "./../assets/rooster.svg";
 
 interface IProps {
