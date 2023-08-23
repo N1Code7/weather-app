@@ -15,8 +15,6 @@ const App = () => {
   const [nightMode, setNightMode] = useState(false);
   const [saint] = useState(getSaintFromCookie() || "");
 
-  console.log(new Date(new Date().setMinutes(43)));
-
   useEffect(() => {
     if (!getSaintFromCookie()) {
       // fetch(`http://fetedujour.fr/api/v2/${import.meta.env.VITE_API_SAINT}/json-normal-10-5`)

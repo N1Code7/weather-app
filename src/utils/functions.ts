@@ -76,7 +76,6 @@ export const convertSpeed = (speed: number) => (speed * 3600) / 1000;
 
 export const getSaintFromCookie = () => {
   const cookies = document.cookie.split(";");
-  console.log(cookies);
 
   let saint = "";
   cookies.forEach((cookie) => {
@@ -86,8 +85,6 @@ export const getSaintFromCookie = () => {
   });
 
   if (saint === "") return null;
-  console.log(saint);
-
   return saint;
 };
 
