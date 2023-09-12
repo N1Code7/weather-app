@@ -1,53 +1,45 @@
-import { useEffect, useState } from "react";
 import { convertSpeed, findWindDirection, formatDate } from "../utils/functions";
+import { IWeather } from "../utils/interfaces";
 import droplet from "./../assets/droplet.svg";
 import loader from "./../assets/loader.svg";
 import thermometer from "./../assets/thermometer.svg";
 import wind from "./../assets/wind.svg";
 
-interface IWeather {
-  city: string;
-  coordinates: Array<number>;
-  country: string;
-  date: string;
-  humidity: number;
-  icon: string;
-  state: string;
-  temperature: number;
-  windSpeed: number;
-  windDirection: number;
+interface IProps {
+  weatherData: IWeather | null;
+  errorMessage: string;
+  // setErrorMessage: Dispatch<SetStateAction<string>>;
 }
 
-const WeatherCard = () => {
-  const [weatherData, setWeatherData] = useState(null as null | IWeather);
-  const [errorMessage, setErrorMessage] = useState("");
+const WeatherCard = ({ weatherData, errorMessage }: IProps) => {
+  // const [weatherData, setWeatherData] = useState(null as null | IWeather);
 
-  useEffect(() => {
-    fetch(`https://api.airvisual.com/v2/nearest_city?key=${import.meta.env.VITE_API_WEATHER}`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`${res.status}, Message: ${res.statusText}`);
-        return res.json();
-      })
-      .then((res) => {
-        setWeatherData({
-          city: res.data.city,
-          coordinates: res.data.location.coordinates,
-          country: res.data.country,
-          state: res.data.state,
-          date: res.data.current.weather.ts,
-          humidity: res.data.current.weather.hu,
-          icon: res.data.current.weather.ic,
-          temperature: res.data.current.weather.tp,
-          windDirection: res.data.current.weather.wd,
-          windSpeed: res.data.current.weather.ws,
-        });
-      })
-      .catch((err) => {
-        // console.error(err);
+  // useEffect(() => {
+  //   fetch(`https://api.airvisual.com/v2/nearest_city?key=${import.meta.env.VITE_API_WEATHER}`)
+  //     .then((res) => {
+  //       if (!res.ok) throw new Error(`${res.status}, Message: ${res.statusText}`);
+  //       return res.json();
+  //     })
+  //     .then((res) => {
+  //       setWeatherData({
+  //         city: res.data.city,
+  //         coordinates: res.data.location.coordinates,
+  //         country: res.data.country,
+  //         state: res.data.state,
+  //         date: res.data.current.weather.ts,
+  //         humidity: res.data.current.weather.hu,
+  //         icon: res.data.current.weather.ic,
+  //         temperature: res.data.current.weather.tp,
+  //         windDirection: res.data.current.weather.wd,
+  //         windSpeed: res.data.current.weather.ws,
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       // console.error(err);
 
-        setErrorMessage(err.message);
-      });
-  }, []);
+  //       setErrorMessage(err.message);
+  //     });
+  // }, []);
 
   return (
     <div className="weather-card">
