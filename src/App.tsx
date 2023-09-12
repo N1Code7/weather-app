@@ -12,21 +12,26 @@ const App = () => {
   const [saint, setSaint] = useState(getSaintFromCookie() || "");
 
   useEffect(() => {
-    if (!getSaintFromCookie()) {
-      fetch(`https://fetedujour.fr/api/v2/${import.meta.env.VITE_API_SAINT}/json-normal-10-5`)
-        .then((res) => {
-          if (!res.ok) throw new Error(`Error: ${res.status}, Message: ${res.statusText}`);
-          return res.json();
-        })
-        .then((res) => {
-          console.log(res);
-          setSaint(res.name);
-          document.cookie = `saint=${res.name}; Expires=${getTomorrowMidnight()}`;
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
+    // if (!getSaintFromCookie()) {
+    fetch(
+      `https://calendarific.com/api/v2/holidays?&api_key=${
+        import.meta.env.VITE_API_SAINT
+      }&country=FR&year=${new Date().getFullYear()}`
+    )
+      // fetch(`https://fetedujour.fr/api/v2/${import.meta.env.VITE_API_SAINT}/json-normal-10-5`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Error: ${res.status}, Message: ${res.statusText}`);
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        setSaint(res.name);
+        document.cookie = `saint=${res.name}; Expires=${getTomorrowMidnight()}`;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    // }
   }, []);
 
   return (
