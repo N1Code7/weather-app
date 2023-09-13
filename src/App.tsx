@@ -123,7 +123,7 @@ const App = () => {
 
       <div className="search-container">
         <div className="input-search">
-          <img src={search} alt="magnifying glass icon" />
+          <img src={search} alt="magnifying glass icon" className="emoji" />
           <input
             type="search"
             name="city-research"
