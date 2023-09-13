@@ -7,40 +7,10 @@ import wind from "./../assets/wind.svg";
 
 interface IProps {
   weatherData: IWeather | null;
-  errorMessage: string;
-  // setErrorMessage: Dispatch<SetStateAction<string>>;
+  errorMessage: { [name: string]: string };
 }
 
 const WeatherCard = ({ weatherData, errorMessage }: IProps) => {
-  // const [weatherData, setWeatherData] = useState(null as null | IWeather);
-
-  // useEffect(() => {
-  //   fetch(`https://api.airvisual.com/v2/nearest_city?key=${import.meta.env.VITE_API_WEATHER}`)
-  //     .then((res) => {
-  //       if (!res.ok) throw new Error(`${res.status}, Message: ${res.statusText}`);
-  //       return res.json();
-  //     })
-  //     .then((res) => {
-  //       setWeatherData({
-  //         city: res.data.city,
-  //         coordinates: res.data.location.coordinates,
-  //         country: res.data.country,
-  //         state: res.data.state,
-  //         date: res.data.current.weather.ts,
-  //         humidity: res.data.current.weather.hu,
-  //         icon: res.data.current.weather.ic,
-  //         temperature: res.data.current.weather.tp,
-  //         windDirection: res.data.current.weather.wd,
-  //         windSpeed: res.data.current.weather.ws,
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       // console.error(err);
-
-  //       setErrorMessage(err.message);
-  //     });
-  // }, []);
-
   return (
     <div className="weather-card">
       {!weatherData && !errorMessage && (
@@ -49,7 +19,7 @@ const WeatherCard = ({ weatherData, errorMessage }: IProps) => {
         </div>
       )}
 
-      {errorMessage && <div>Une erreur est survenue !</div>}
+      {(errorMessage.weather || errorMessage.address) && <div>Une erreur est survenue !</div>}
 
       {weatherData && (
         <>

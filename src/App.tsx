@@ -15,9 +15,8 @@ interface iCity {
 }
 
 const App = () => {
-  const [nightMode, setNightMode] = useState(false);
   const [weatherData, setWeatherData] = useState(null as null | IWeather);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState({ citySearch: "", weather: "", address: "" });
   const [citiesList, setCitiesList] = useState([]);
   const searchCityRef = useRef<HTMLInputElement>(null);
 
@@ -47,7 +46,7 @@ const App = () => {
       })
       .catch((err) => {
         // console.error(err);
-        setErrorMessage(err.message);
+        setErrorMessage((prev) => ({ ...prev, weather: err.message }));
       });
   };
 
@@ -63,9 +62,10 @@ const App = () => {
           return res.json();
         })
         .then((res) => {
-          console.log(res);
-
           setCitiesList(res);
+        })
+        .catch((err) => {
+          setErrorMessage((prev) => ({ ...prev, citySearch: err.message }));
         });
     } else {
       setCitiesList([]);
@@ -95,6 +95,9 @@ const App = () => {
           lat: res.features[0].geometry.coordinates[1],
           lon: res.features[0].geometry.coordinates[0],
         });
+      })
+      .catch((err) => {
+        setErrorMessage((prev) => ({ ...prev, address: err.message }));
       });
   };
 
@@ -108,8 +111,8 @@ const App = () => {
   }, []);
 
   return (
-    <main className={nightMode ? "" : "night"}>
-      <ToggleMode nightMode={nightMode} setNightMode={setNightMode} />
+    <main>
+      <ToggleMode />
 
       <div className="calendar-info">
         <img src={calendar} className="emoji" alt="calendar icon" />
@@ -134,6 +137,12 @@ const App = () => {
           <img src={house} className="emoji" alt="house icon" />
         </button>
       </div>
+
+      {errorMessage.citySearch && (
+        <ul>
+          <li>Une erreur est survenue dans la recherche de la ville correspondante !</li>
+        </ul>
+      )}
 
       {citiesList.length !== 0 && (
         <ul className="citiesList">

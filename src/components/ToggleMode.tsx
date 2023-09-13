@@ -1,13 +1,17 @@
-import { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import owl from "./../assets/owl.svg";
 import rooster from "./../assets/rooster.svg";
 
-interface IProps {
-  nightMode: boolean;
-  setNightMode: Dispatch<SetStateAction<boolean>>;
-}
+const ToggleMode = () => {
+  const [nightMode, setNightMode] = useState(
+    new Date().getHours() > 17 || new Date().getHours() < 7 ? true : false
+  );
 
-const ToggleMode = ({ nightMode, setNightMode }: IProps) => {
+  nightMode ? document.body.classList.add("night") : document.body.classList.remove("night");
+  nightMode
+    ? document.querySelector("main")?.classList.add("night")
+    : document.querySelector("main")?.classList.remove("night");
+
   return (
     <button className="toggle-mode" onClick={() => setNightMode((prev: boolean) => !prev)}>
       <img

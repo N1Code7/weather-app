@@ -34,6 +34,10 @@ body {
   font-size: 1.7rem;
   font-family: $font-light;
   font-weight: 300;
+
+  &.night {
+    background-image: linear-gradient(180deg, #a7a6cb 0%, #8989ba 100%);
+  }
 }
 
 main {
@@ -51,6 +55,17 @@ main {
     border-radius: 1.5rem;
     background-color: $bg1;
     backdrop-filter: blur(25px);
+  }
+
+  &.night > div,
+  &.night .input-search,
+  &.night button,
+  &.night .btn-home {
+    background-color: rgba(112, 112, 132, 0.3);
+  }
+
+  &.night #cityResearch::placeholder {
+    color: rgba($color: #000000, $alpha: 0.4);
   }
 }
 
